@@ -19,13 +19,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NonNull
+  
     private String firstname;
-    @NonNull
+    
     private String lastname;
-    @NonNull
+   
     private Gender gender;
-    @NonNull
+   
     private LocalDate date_of_birth;
     private LocalDateTime date_created;
     private LocalDateTime date_updated;
