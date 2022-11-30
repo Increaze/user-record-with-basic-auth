@@ -19,9 +19,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+<<<<<<< HEAD
     private String firstname;
     private String lastname;
     private Gender gender;
+=======
+  
+    private String firstname;
+    
+    private String lastname;
+   
+    private Gender gender;
+   
+>>>>>>> 80eb45dcc86c754cdf73983e07e7f030fecdc1cc
     private LocalDate date_of_birth;
     private LocalDateTime date_created;
     private LocalDateTime date_updated;

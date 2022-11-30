@@ -100,6 +100,10 @@ public class UserServiceImpl implements UserService {
         userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("User Not Found"));
         userRepository.deleteById(userId);
     }
+   @Override
+   public List<User> findAllUser(){
+   return userRepository.findAll();
+   }
 
     private LocalDate getFormattedDateOfBirth(String dateOfBirth) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");

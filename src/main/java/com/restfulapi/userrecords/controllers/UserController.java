@@ -1,5 +1,6 @@
 package com.restfulapi.userrecords.controllers;
 
+import com.restfulapi.userrecords.datas.models.User;
 import com.restfulapi.userrecords.datas.repositories.UserRepository;
 import com.restfulapi.userrecords.dtos.requests.CreateUserRequest;
 import com.restfulapi.userrecords.dtos.requests.UpdateUserRequest;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -37,6 +39,15 @@ public class UserController {
         try {
             Map<String, Object> response = userService.getAllUser(filterField,page,size);
             return new ResponseEntity<>(response, HttpStatus.OK);
+        }catch (Exception exception){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @GetMapping("/list")
+    public  ResponseEntity<List<User>> findAllUsers(){
+        try {
+            List<User> users = userService.findAllUser();
+            return new ResponseEntity<>(users, HttpStatus.OK);
         }catch (Exception exception){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

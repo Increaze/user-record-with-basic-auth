@@ -4,6 +4,7 @@ import com.restfulapi.userrecords.datas.models.User;
 import com.restfulapi.userrecords.dtos.requests.CreateUserRequest;
 import com.restfulapi.userrecords.dtos.requests.UpdateUserRequest;
 
+import java.util.List;
 import java.util.Map;
 
 
@@ -14,4 +15,5 @@ public interface UserService {
     User getUserById(Long userId);
     User updateUser(UpdateUserRequest request);
     void deleteUserById(Long userId);
+    List<User> findAllUser();
 }
