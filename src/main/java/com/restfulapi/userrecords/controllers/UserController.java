@@ -41,6 +41,15 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @GetMapping("/list")
+    public  ResponseEntity<List<User>> findAllUsers(){
+        try {
+            List<User> users = userService.findAllUser();
+            return new ResponseEntity<>(users, HttpStatus.OK);
+        }catch (Exception exception){
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/{userId}")
     public  ResponseEntity<?> getUserById(@PathVariable Long userId){
         try {
