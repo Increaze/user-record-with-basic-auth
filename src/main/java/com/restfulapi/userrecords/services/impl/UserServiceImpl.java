@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         if (firstname == null) {
             userPage = userRepository.findAll(paging);
         } else {
-            userPage = userRepository.findByFirstname(firstname, paging);
+            userPage = userRepository.findByFirstnameContainingIgnoreCase(firstname, paging);
         }
          users = userPage.getContent();
 
@@ -65,7 +65,7 @@ public class UserServiceImpl implements UserService {
         response.put("page_size",userPage.getNumberOfElements());
         response.put("totalUsers", userPage.getTotalElements());
         response.put("totalPages", userPage.getTotalPages());
-        response.put("currentPage", userPage.getNumber());
+        response.put("currentPage", userPage.getNumber()+1);
         return response;
     }
 
