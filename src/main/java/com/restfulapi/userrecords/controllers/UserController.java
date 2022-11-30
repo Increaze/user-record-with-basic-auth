@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping()
     public  ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(name = "filter_field",required = false) String filterField,
                                                             @RequestParam(name = "page",defaultValue = "1") int page,
-                                                            @RequestParam(name = "page_size",defaultValue = "25") int size){
+                                                            @RequestParam(name = "page_size",defaultValue = "1") int size){
         try {
             Map<String, Object> response = userService.getAllUser(filterField,page,size);
             return new ResponseEntity<>(response, HttpStatus.OK);
