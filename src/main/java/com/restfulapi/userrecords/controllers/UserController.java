@@ -63,7 +63,7 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
         }catch (Exception exception){
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
