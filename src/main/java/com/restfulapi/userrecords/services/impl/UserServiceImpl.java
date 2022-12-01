@@ -116,9 +116,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUserById(Long userId) {
-        userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("User Not Found"));
+    public String deleteUserById(Long userId) {
+        userRepository.findById(userId).orElseThrow(()-> new UserNotFoundException("UNAVAILABLE RECORD"));
         userRepository.deleteById(userId);
+        return "Successfully Deleted";
     }
    @Override
    public List<User> findAllUser(){

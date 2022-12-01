@@ -15,6 +15,6 @@ public interface UserService {
     Map<String, Object> getAllUser(String filterFirstname, String FilterLastname,String filterGender, String filterDateOfBirth, int page, int page_size, String sortOrder, String sortField);
     User getUserById(Long userId);
     User updateUser(UpdateUserRequest request);
-    void deleteUserById(Long userId);
+    String deleteUserById(Long userId);
     List<User> findAllUser();
 }

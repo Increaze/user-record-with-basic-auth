@@ -78,12 +78,12 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public  int deleteUserById(@PathVariable Long userId){
+    public  ResponseEntity<?> deleteUserById(@PathVariable Long userId){
         try {
-            userService.deleteUserById(userId);
-            return HttpStatus.OK.value();
+            return new ResponseEntity<>(userService.deleteUserById(userId),HttpStatus.OK);
+
         }catch (UserNotFoundException exception){
-            return  HttpStatus.BAD_REQUEST.value();
+            return  new ResponseEntity<>(exception.getMessage(),HttpStatus.NOT_FOUND);
         }
 
     }
