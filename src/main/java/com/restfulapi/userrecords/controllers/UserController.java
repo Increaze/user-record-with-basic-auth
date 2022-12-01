@@ -46,7 +46,7 @@ public class UserController {
             Map<String, Object> response = userService.getAllUser(filterFirstName, filterLastName,filterGender,filterDateOfBirth,page,size,sortOrder,sortField);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (Exception exception){
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
     @GetMapping("/list")
@@ -63,7 +63,7 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.getUserById(userId), HttpStatus.OK);
         }catch (Exception exception){
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -72,7 +72,7 @@ public class UserController {
         try {
             return new ResponseEntity<>(userService.updateUser(updateUserRequest), HttpStatus.OK);
         }catch (Exception exception){
-            return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
