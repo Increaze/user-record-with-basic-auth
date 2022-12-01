@@ -49,14 +49,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object>  getAllUser(String firstname, int page, int page_size) {
+    public Map<String, Object>  getAllUser(String filterFirstname, String filterLastname, String filterGender, String filterDateOfBirth, int page, int page_size) {
         List<User> users = new ArrayList<>();
         Pageable paging = PageRequest.of(page, page_size);
         Page<User> userPage;
-        if (firstname == null) {
+
+        if (filterFirstname != null) {
+            userPage = userRepository.findByFirstnameContainingIgnoreCase(filterFirstname, paging);
+        }
+        else if(filterLastname != null){
+            userPage = userRepository.findByLastnameContainingIgnoreCase(filterLastname, paging);
+        }
+        else {
             userPage = userRepository.findAll(paging);
-        } else {
-            userPage = userRepository.findByFirstnameContainingIgnoreCase(firstname, paging);
         }
          users = userPage.getContent();
 

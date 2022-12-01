@@ -11,7 +11,7 @@ import java.util.Map;
 public interface UserService {
 
     User createUser(CreateUserRequest createUserRequest);
-    Map<String, Object> getAllUser(String firstname, int page, int page_size);
+    Map<String, Object> getAllUser(String filterFirstname, String FilterLastname,String filterGender, String filterDateOfBirth, int page, int page_size);
     User getUserById(Long userId);
     User updateUser(UpdateUserRequest request);
     void deleteUserById(Long userId);

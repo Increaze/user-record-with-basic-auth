@@ -33,11 +33,14 @@ public class UserController {
 
     }
     @GetMapping()
-    public  ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(name = "filter_field",required = false) String filterField,
+    public  ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(name = "filter_field_firstname",required = false) String filterFirstName,
+                                                            @RequestParam(name = "filter_field_lastname",required = false) String filterLastName,
+                                                            @RequestParam(name = "filter_field_gender",required = false) String filterGender,
+                                                            @RequestParam(name = "filter_field_dob",required = false) String filterDateOfBirth,
                                                             @RequestParam(name = "page",defaultValue = "0") int page,
                                                             @RequestParam(name = "page_size",defaultValue = "25") int size){
         try {
-            Map<String, Object> response = userService.getAllUser(filterField,page,size);
+            Map<String, Object> response = userService.getAllUser(filterFirstName, filterLastName,filterGender,filterDateOfBirth,page,size);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (Exception exception){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
