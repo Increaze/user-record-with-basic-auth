@@ -12,12 +12,16 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import static org.springframework.data.domain.Sort.by;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,19 +53,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Map<String, Object>  getAllUser(String filterFirstname, String filterLastname, String filterGender, String filterDateOfBirth, int page, int page_size) {
+    public Map<String, Object>  getAllUser(String filterFirstname, String filterLastname, String filterGender, String filterDateOfBirth, int page, int page_size, String sortOrder, String sortField) {
         List<User> users = new ArrayList<>();
-        Pageable paging = PageRequest.of(page, page_size);
+        List<Order> orders = new ArrayList<>();
+        if(sortField != null && sortOrder.equalsIgnoreCase("asc")) {orders.add(new Order(Sort.Direction.ASC, sortField));
+        }
+        if(sortField != null && sortOrder.equalsIgnoreCase("desc")) {orders.add(new Order(Sort.Direction.DESC,sortField));}
+        if(sortOrder.equalsIgnoreCase("desc")){
+            orders.add(new Order(Sort.Direction.DESC, "id"));
+        }
+
+        Pageable pagingSort = PageRequest.of(page, page_size,Sort.by(orders));
         Page<User> userPage;
 
         if (filterFirstname != null) {
-            userPage = userRepository.findByFirstnameContainingIgnoreCase(filterFirstname, paging);
+            userPage = userRepository.findByFirstnameContainingIgnoreCase(filterFirstname, pagingSort);
         }
         else if(filterLastname != null){
-            userPage = userRepository.findByLastnameContainingIgnoreCase(filterLastname, paging);
+            userPage = userRepository.findByLastnameContainingIgnoreCase(filterLastname, pagingSort);
         }
         else {
-            userPage = userRepository.findAll(paging);
+            userPage = userRepository.findAll(pagingSort);
         }
          users = userPage.getContent();
 
@@ -71,6 +83,9 @@ public class UserServiceImpl implements UserService {
         response.put("totalUsers", userPage.getTotalElements());
         response.put("totalPages", userPage.getTotalPages());
         response.put("currentPage", userPage.getNumber()+1);
+        assert sortField != null;
+        response.put("sort_order_mode", userPage.getSort().getOrderFor(sortField).getDirection());
+        response.put("sort_field", sortField);
         return response;
     }
 

@@ -8,6 +8,7 @@ import com.restfulapi.userrecords.exceptions.InvalidGenderException;
 import com.restfulapi.userrecords.exceptions.UserNotFoundException;
 import com.restfulapi.userrecords.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,11 @@ public class UserController {
                                                             @RequestParam(name = "filter_field_gender",required = false) String filterGender,
                                                             @RequestParam(name = "filter_field_dob",required = false) String filterDateOfBirth,
                                                             @RequestParam(name = "page",defaultValue = "0") int page,
+                                                            @RequestParam(name = "sort_order_mode",defaultValue = "asc") String sortOrder,
+                                                            @RequestParam(name = "sort_field",defaultValue = "id") String sortField,
                                                             @RequestParam(name = "page_size",defaultValue = "25") int size){
         try {
-            Map<String, Object> response = userService.getAllUser(filterFirstName, filterLastName,filterGender,filterDateOfBirth,page,size);
+            Map<String, Object> response = userService.getAllUser(filterFirstName, filterLastName,filterGender,filterDateOfBirth,page,size,sortOrder,sortField);
             return new ResponseEntity<>(response, HttpStatus.OK);
         }catch (Exception exception){
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
